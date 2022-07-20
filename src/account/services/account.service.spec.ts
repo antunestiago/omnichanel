@@ -26,6 +26,8 @@ describe('AccountService', () => {
       phone: '+559298284322',
     });
 
+    accountDaoMock.getByCPF.mockResolvedValueOnce(undefined);
+
     const createAccountDto1: CreateAccountDto = {
       cpf: '0091381232',
       firstName: 'Chaly',

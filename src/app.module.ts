@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { AccountModule } from './account/account.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AddressProviderModule } from './common/address-provider/address-provider.module';
+import { AddressModule } from './address/address.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AddressProviderModule } from './common/address-provider/address-provide
       synchronize: true,
     }),
     AddressProviderModule,
+    AddressModule,
   ],
   controllers: [AppController],
   providers: [AppService],

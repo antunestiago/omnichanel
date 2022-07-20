@@ -1,5 +1,5 @@
 export interface AddressProvider {
-  getAddressByCEP(cep: string): object;
+  getAddressByCEP(cep: string): Promise<AddressResponse>;
 }
 
 export interface AddressResponse {
