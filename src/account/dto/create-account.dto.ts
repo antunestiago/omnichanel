@@ -9,5 +9,5 @@ export class CreateAccountDto {
 
   phone: string;
 
-  address: CreateAddressDto;
+  accountAddress: CreateAddressDto;
 }

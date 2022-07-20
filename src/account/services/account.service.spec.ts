@@ -3,14 +3,17 @@ import { AccountServiceImpl } from './account.service';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { AccountDao } from '../interfaces/account-dao.interface';
 import { CreateAccountDto } from '../dto/create-account.dto';
+import { AddressProvider } from '../../common/address-provider/address-provider.interface';
 
 describe('AccountService', () => {
   let service: AccountServiceImpl;
   let accountDaoMock: DeepMocked<AccountDao>;
+  let addressProviderMock: DeepMocked<AddressProvider>;
 
   beforeAll(() => {
     accountDaoMock = createMock<AccountDao>();
-    service = new AccountServiceImpl(accountDaoMock);
+    addressProviderMock = createMock<AddressProvider>();
+    service = new AccountServiceImpl(accountDaoMock, addressProviderMock);
   });
 
   it('should be defined', () => {
@@ -24,6 +27,15 @@ describe('AccountService', () => {
       firstName: 'Chaly',
       lastName: 'Benchimol',
       phone: '+559298284322',
+      address: {
+        id: 1,
+        address: 'asdas',
+        address1: '',
+        cep: '82737623',
+        city: 'Manaus',
+        state: 'AM',
+        neighborhood: 'centro',
+      },
     });
 
     accountDaoMock.getByCPF.mockResolvedValueOnce(undefined);
@@ -33,6 +45,14 @@ describe('AccountService', () => {
       firstName: 'Chaly',
       lastName: 'Benchimol',
       phone: '+559298284322',
+      accountAddress: {
+        address: 'asdas',
+        address1: '',
+        cep: '82737623',
+        city: 'Manaus',
+        state: 'AM',
+        neighborhood: 'centro',
+      },
     };
 
     const result = await service.createAccount(createAccountDto1);

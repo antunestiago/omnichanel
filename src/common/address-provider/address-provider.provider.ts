@@ -1,11 +1,16 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import {
   AddressProvider,
   AddressResponse,
   ViaCepResponse,
 } from './address-provider.interface';
 import { MessageErrorsEnum } from '../enums/message-errors.enum';
+import { map } from 'rxjs';
 
 @Injectable()
 export class AddressProviderImpl implements AddressProvider {
@@ -13,34 +18,22 @@ export class AddressProviderImpl implements AddressProvider {
   constructor(private readonly httpService: HttpService) {}
 
   async getAddressByCEP(cep: string): Promise<AddressResponse> {
-    return await this.httpService
+    const response = await this.httpService
       .get(`${this.baseUrl}${cep}/json`)
-      .toPromise()
-      .then((resp) => {
-        if ('erro' in resp.data) {
-          throw new InternalServerErrorException(
-            resp,
-            MessageErrorsEnum.viaCepGeneralError,
-          );
-        }
+      .toPromise();
 
-        const viaCepResult: ViaCepResponse = resp.data;
-        const addressResponse: AddressResponse = {
-          cep: viaCepResult.cep,
-          address: viaCepResult.logradouro,
-          address1: viaCepResult.complemento,
-          city: viaCepResult.localidade,
-          neighborhood: viaCepResult.bairro,
-          state: viaCepResult.uf,
-        };
+    if ('erro' in response.data) {
+      throw new NotFoundException(MessageErrorsEnum.viaCepGeneralError);
+    }
 
-        return addressResponse;
-      })
-      .catch((rej) => {
-        throw new InternalServerErrorException(
-          rej,
-          MessageErrorsEnum.viaCepGeneralError,
-        );
-      });
+    const viaCepResult: ViaCepResponse = response.data;
+    return {
+      cep: viaCepResult.cep,
+      address: viaCepResult.logradouro,
+      address1: viaCepResult.complemento,
+      city: viaCepResult.localidade,
+      neighborhood: viaCepResult.bairro,
+      state: viaCepResult.uf,
+    };
   }
 }

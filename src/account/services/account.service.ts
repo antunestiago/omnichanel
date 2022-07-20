@@ -22,8 +22,10 @@ export class AccountServiceImpl implements AccountService {
       throw new ConflictException('CPF already exists');
     }
 
-    //last check if address is a valid one
-    await this.addressProvider.getAddressByCEP(createAccountDTO.address.cep);
+    // last check if address is a valid one
+    await this.addressProvider.getAddressByCEP(
+      createAccountDTO.accountAddress.cep,
+    );
 
     const account = this.buildNewAccount(createAccountDTO);
 
@@ -37,12 +39,12 @@ export class AccountServiceImpl implements AccountService {
     account.lastName = createAccountDTO.lastName;
     account.phone = createAccountDTO.phone;
     account.address = new Address();
-    account.address.address = createAccountDTO.address.address;
-    account.address.address1 = createAccountDTO.address.address1;
-    account.address.cep = createAccountDTO.address.cep;
-    account.address.neighborhood = createAccountDTO.address.neighborhood;
-    account.address.city = createAccountDTO.address.city;
-    account.address.state = createAccountDTO.address.state;
+    account.address.address = createAccountDTO.accountAddress.address;
+    account.address.address1 = createAccountDTO.accountAddress.address1;
+    account.address.cep = createAccountDTO.accountAddress.cep;
+    account.address.neighborhood = createAccountDTO.accountAddress.neighborhood;
+    account.address.city = createAccountDTO.accountAddress.city;
+    account.address.state = createAccountDTO.accountAddress.state;
     return account;
   }
 
