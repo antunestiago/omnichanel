@@ -5,6 +5,7 @@ import {
   AddressResponse,
   ViaCepResponse,
 } from './address-provider.interface';
+import { MessageErrorsEnum } from '../enums/message-errors.enum';
 
 @Injectable()
 export class AddressProviderImpl implements AddressProvider {
@@ -16,6 +17,13 @@ export class AddressProviderImpl implements AddressProvider {
       .get(`${this.baseUrl}${cep}/json`)
       .toPromise()
       .then((resp) => {
+        if ('erro' in resp.data) {
+          throw new InternalServerErrorException(
+            resp,
+            MessageErrorsEnum.viaCepGeneralError,
+          );
+        }
+
         const viaCepResult: ViaCepResponse = resp.data;
         const addressResponse: AddressResponse = {
           cep: viaCepResult.cep,
@@ -29,7 +37,10 @@ export class AddressProviderImpl implements AddressProvider {
         return addressResponse;
       })
       .catch((rej) => {
-        throw new InternalServerErrorException(rej, 'error in ViaCEPProvider');
+        throw new InternalServerErrorException(
+          rej,
+          MessageErrorsEnum.viaCepGeneralError,
+        );
       });
   }
 }

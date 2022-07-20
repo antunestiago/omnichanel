@@ -1,13 +1,9 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Account } from '../../account/entities/account.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Address {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @ManyToOne(() => Account, (account) => account.cpf)
-  account: Account;
 
   @Column()
   cep: string;

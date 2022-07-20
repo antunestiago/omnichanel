@@ -1,6 +1,5 @@
 export class CreateAddressDto {
   id: number;
-  accountId: number;
   cep: string;
   address: string;
   address1: string;

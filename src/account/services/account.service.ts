@@ -5,11 +5,16 @@ import { AccountService } from '../interfaces/account.interface';
 import { Account } from '../entities/account.entity';
 import { AccountDao } from '../interfaces/account-dao.interface';
 import { DITokensEnum } from '../../common/enums/DITokens.enum';
+import { Address } from '../../address/entities/address.entity';
+import { AddressService } from '../../address/interfaces/address.interface';
+import { AddressProvider } from '../../common/address-provider/address-provider.interface';
 
 @Injectable()
 export class AccountServiceImpl implements AccountService {
   constructor(
     @Inject(DITokensEnum.accountDAO) private accountDAO: AccountDao,
+    @Inject(DITokensEnum.addressProvider)
+    private addressProvider: AddressProvider,
   ) {}
 
   async createAccount(createAccountDTO: CreateAccountDto): Promise<Account> {
@@ -17,13 +22,28 @@ export class AccountServiceImpl implements AccountService {
       throw new ConflictException('CPF already exists');
     }
 
+    //last check if address is a valid one
+    await this.addressProvider.getAddressByCEP(createAccountDTO.address.cep);
+
+    const account = this.buildNewAccount(createAccountDTO);
+
+    return await this.accountDAO.save(account);
+  }
+
+  private buildNewAccount(createAccountDTO: CreateAccountDto) {
     const account = new Account();
     account.cpf = createAccountDTO.cpf;
     account.firstName = createAccountDTO.firstName;
     account.lastName = createAccountDTO.lastName;
     account.phone = createAccountDTO.phone;
-
-    return await this.accountDAO.save(account);
+    account.address = new Address();
+    account.address.address = createAccountDTO.address.address;
+    account.address.address1 = createAccountDTO.address.address1;
+    account.address.cep = createAccountDTO.address.cep;
+    account.address.neighborhood = createAccountDTO.address.neighborhood;
+    account.address.city = createAccountDTO.address.city;
+    account.address.state = createAccountDTO.address.state;
+    return account;
   }
 
   async getAccountByCPF(cpf: string): Promise<Account> {

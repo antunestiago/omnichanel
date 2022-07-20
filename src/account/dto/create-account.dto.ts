@@ -1,3 +1,5 @@
+import { CreateAddressDto } from '../../address/dto/create-address.dto';
+
 export class CreateAccountDto {
   firstName: string;
 
@@ -6,4 +8,6 @@ export class CreateAccountDto {
   cpf: string;
 
   phone: string;
+
+  address: CreateAddressDto;
 }
