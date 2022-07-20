@@ -5,10 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 export class AccountDaoImpl implements AccountDao {
   constructor(
-    @InjectRepository(Account) private readonly accountDao: Repository<Account>,
+    @InjectRepository(Account) private readonly repository: Repository<Account>,
   ) {}
 
   async save(account: Account): Promise<Account> {
-    return await this.accountDao.save(account);
+    return await this.repository.save(account);
+  }
+
+  async getByCPF(cpf: string): Promise<Account> {
+    return await this.repository.findOneBy({ cpf: cpf });
   }
 }

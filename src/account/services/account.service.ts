@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { UpdateAccountDto } from '../dto/update-account.dto';
 import { AccountService } from '../interfaces/account.interface';
@@ -10,6 +10,10 @@ export class AccountServiceImpl implements AccountService {
   constructor(@Inject('AccountDAO') private accountDAO: AccountDao) {}
 
   async createAccount(createAccountDTO: CreateAccountDto): Promise<Account> {
+    if (await this.getAccountByCPF(createAccountDTO.cpf)) {
+      throw new ConflictException('CPF already exists');
+    }
+
     const account = new Account();
     account.cpf = createAccountDTO.cpf;
     account.firstName = createAccountDTO.firstName;
@@ -19,7 +23,7 @@ export class AccountServiceImpl implements AccountService {
     return await this.accountDAO.save(account);
   }
 
-  getAccountById(id: number): Promise<Account> {
-    return Promise.resolve(undefined);
+  async getAccountByCPF(cpf: string): Promise<Account> {
+    return await this.accountDAO.getByCPF(cpf);
   }
 }
