@@ -16,7 +16,7 @@
 
 4. Se pudesse sugerir uma melhoria, mudança ou oportunidade. O que seria?
  - Essa pergunta ta muito vaga, melhoria em quê? No sistema que acabei e estou submetendo, no desafio proposto?
- No sistema ainda tem bastante coisa para fazer, Validators, FilterExeptions, Tests Coverage, Pipeline de integração e deploy.
+ No sistema ainda tem bastante coisa para fazer, Loggers, Validators, FilterExeptions, Tests Coverage, Pipeline de integração e deploy.
 
 5. Acha válido esse desafio para o processo que está participando?
  - O desafio é bastante genérico, basicamente um CRUD API com um cliente, aborda bastantes assuntos e da oportunidade de aplicar SOLID e Clean Code, ainda que sem
