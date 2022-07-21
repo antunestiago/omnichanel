@@ -25,11 +25,20 @@ describe('Account Integration', () => {
 
   it('should save create a account integration', async () => {
     jest.spyOn(accountDaoMock, 'save').mockResolvedValue({
-      id: 123,
+      id: 1,
       cpf: '0091381232',
       firstName: 'Chaly',
       lastName: 'Benchimol',
       phone: '+559298284322',
+      address: {
+        id: 1,
+        address: 'asdas',
+        address1: '',
+        cep: '82737623',
+        city: 'Manaus',
+        state: 'AM',
+        neighborhood: 'centro',
+      },
     });
 
     const createAccountDto1: CreateAccountDto = {
@@ -37,6 +46,14 @@ describe('Account Integration', () => {
       firstName: 'Chaly',
       lastName: 'Benchimol',
       phone: '+559298284322',
+      accountAddress: {
+        address: 'asdas',
+        address1: '',
+        cep: '82737623',
+        city: 'Manaus',
+        state: 'AM',
+        neighborhood: 'centro',
+      },
     };
 
     const response = await request(app.getHttpServer())
