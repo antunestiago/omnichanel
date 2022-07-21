@@ -1,0 +1,23 @@
+1. A solução deve ser disponibilizada em Cloud ou On-premise?
+ - Em cloud, pois os custos de uma infra estariam terceirizados, atualizações de hardware softwares. Plataformas de Cloud-infra também possuem diversos recursos
+ para propociornar a escalabilidade e também a segurança de uma aplicação.
+
+2. Considerando a participação de 4 pessoas técnicas para o desenvolvimento dessa solução, responda qual ferramenta acreditas ser apropriada para o controle de tarefas da equipe, a ferramenta é ágil?
+ - Pensando numa esteira de desenvolvimento, acredito que o Scrumban (Scrum + kanban) permite com que a equipe visualize o que todos estão trabalhando e a prioridade
+ de começar a terminar em vez de puxar novas tarefas ajuda no ganho de entrega de valor para o cliente.
+ Uma esteira poe exemplo: backlog -> refinamento -> to do -> in progress -> code review -> qa(dev) -> qa(staging) -> deploy prod -> monitoring -> done
+ é um fluxo de trabalho que vejo cobrir as pricipais etapas de um desenvolvimento de app.
+
+ O jira pode ser uma ferramento que ajuda criarmos esse ambiente de iteração e a esteira.
+
+3. Você se sente capaz de liderar esta equipe? Por quê?
+ - Não, apesar de ja ter liderado algumas features dentro de alguns projetos e ter pensado em soluções de ponta a ponta, acredito que ainda tenho que evoluir pontos
+ dentro da minha carreira pra exercer a lideraça com a autoridade que o cargo pede e ajudando melhor a equipe com uma experiência maior.
+
+4. Se pudesse sugerir uma melhoria, mudança ou oportunidade. O que seria?
+ - Essa pergunta ta muito vaga, melhoria em quê? No sistema que acabei e estou submetendo, no desafio proposto?
+ No sistema ainda tem bastante coisa para fazer, Validators, FilterExeptions, Tests Coverage, Pipeline de integração e deploy.
+
+5. Acha válido esse desafio para o processo que está participando?
+ - O desafio é bastante genérico, basicamente um CRUD API com um cliente, aborda bastantes assuntos e da oportunidade de aplicar SOLID e Clean Code, ainda que sem
+ tanta profundidade. Também permite verificar testes unitários e de integração.
