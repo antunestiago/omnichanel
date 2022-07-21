@@ -3,6 +3,10 @@
 This projects validates CPF through a client that checks ViaCEP api, also create an account through 
 the endpoint.
 
+The Layer Structure:
+
+![Screenshot from 2022-07-20 20-10-05](https://user-images.githubusercontent.com/20117606/180103308-f4636410-cff2-4137-8812-3da8c1adf29a.png)
+
 
 [GET] /address/{cep}  <= Returns if address further information if it exists
 
@@ -37,6 +41,11 @@ input body:
   }
 }
 ```
+
+Example of how to use through Postman:
+
+![omnichannel](https://user-images.githubusercontent.com/20117606/180104129-653c9e86-cb80-47ff-805d-f047f3d82599.gif)
+
 
 ### How to start a docker of this application
 
